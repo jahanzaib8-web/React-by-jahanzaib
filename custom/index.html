@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Render Example</title>
+</head>
+<body>
+    <!-- Container where the element will be rendered -->
+    <div id="root"></div>
+
+    <script>
+        function customRender(reactElement, container) {
+            const domElement = document.createElement(reactElement.type);
+
+            domElement.innerHTML = reactElement.children;
+
+        
+            for (const prop in reactElement.props) {
+                if (prop === "children") continue;
+                domElement.setAttribute(prop, reactElement.props[prop]);
+            }
+
+          
+            container.appendChild(domElement);
+        }
+
+        const reactElement = {
+            type: 'a',
+            props: {
+                href: 'https://google.com',
+                target: '_blank'
+            },
+            children: 'Click me to visit Google'
+        };
+
+        const Container = document.querySelector('#root');
+        customRender(reactElement, Container);
+    </script>
+</body>
+</html>
+
